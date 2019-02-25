@@ -1,10 +1,10 @@
 <?php
 require_once('config.php');
-require_once('error.class.php');
-require_once('db.class.php');
-require_once('first.class.php');
-require_once('knearest.class.php');
-
+$classes = array_diff(scandir(getcwd().'/classes/'), array('..', '.'));
+foreach ($classes as $class) {
+    require_once(getcwd().'/classes/'.$class);
+}
+// get the database 
 $db = new DB(getcwd().'/../data/data.db');
 if(false === $db)
     die(json_encode([
@@ -46,6 +46,22 @@ function setFirst($data) {
 
 function setTrain($data) {
     $data = isset($data['sample']) ? $data['sample'] : false;
-    return First::train($data);
-    return true;
+
+    $results = [];
+    $samples = [];
+    $img = [];
+    // get the samples
+    $s = Data::getAll();
+    while ($row = $s->fetchArray()) {
+        $img[$row['iid']][$row['y']][$row['x']] = $row['pixel'];
+        $samples[$row['iid']][$row['y']][$row['x']]['pixel'] = $row['pixel'];
+    }
+    
+    $results[] = First::train($data,$samples);
+
+    $results[] = Second::train($data,$samples);
+//echo '<pre>';print_r($results);die('END OF DUMP');
+    $return = General::mergeAll($results,$img);
+
+    return $return;
 }

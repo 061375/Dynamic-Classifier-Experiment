@@ -52,7 +52,7 @@ function makeImage(swidth) {
             sample[y] = [];
         for(let x=0;x<swidth;x++) {
             let r = Math.floor(Math.random() * 2000);
-            if (r > (1550 + Math.random() * 500)) {
+            if (r > (800 + Math.random() * 500)) {
                 r = 1;
             }else{
                 r = 0;

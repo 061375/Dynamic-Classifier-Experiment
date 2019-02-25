@@ -419,6 +419,23 @@ Helpers = (function($){
             });
         }
     }
+    /** 
+     * */
+    var setStyle = function() {
+
+        $('#dynamicstyle').html('');
+        
+        let style = "";
+        $.each(STYLES,function(k,v) {
+            style+=k+'{';
+            $.each(v,function(kk,vv){
+                style+=kk+':'+vv+';';
+            });
+            style+='}';
+        });
+        
+        $('#dynamicstyle').html(style);
+    }
     return {
     	hexToRgb:hexToRgb,
         componentToHex:componentToHex,
@@ -435,6 +452,7 @@ Helpers = (function($){
         getParameterByName:getParameterByName,
         dateToEpoch:dateToEpoch,
         aSort:aSort,
-        clockToNumber:clockToNumber
+        clockToNumber:clockToNumber,
+        setStyle:setStyle
     }
 })(jQuery);
