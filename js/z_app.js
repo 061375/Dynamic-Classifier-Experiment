@@ -11,6 +11,7 @@ window.onload = () => {
         drawImage($t,sample);
     });
     // setFirst
+    // setTrain
     Ajax.get('setTrain',{
         sample:sample
     },function(data){
