@@ -10,7 +10,7 @@ window.onload = () => {
     drawClass($('#target'),function($t){
         drawImage($t,sample);
     });
-    
+    // setFirst
     Ajax.get('setTrain',{
         sample:sample
     },function(data){

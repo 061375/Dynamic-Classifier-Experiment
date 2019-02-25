@@ -47,7 +47,13 @@ function makeImage(swidth) {
         if (undefined === sample[y])
             sample[y] = [];
         for(let x=0;x<swidth;x++) {
-            sample[y][x] = Math.floor(Math.random() * 2);
+            let r = Math.floor(Math.random() * 2000);
+            if (r > (150 + Math.random() * 1350)) {
+                r = 1;
+            }else{
+                r = 0;
+            }
+            sample[y][x] = r;
         }
     }
     return sample;
