@@ -3,7 +3,7 @@
  * @param {Object}
  * @param {Array}
  * */
-function drawImage($t,s) {
+function drawImage($t,s, callback) {
     //
     let image = document.createElement('div');
         $(image).attr('class','image');
@@ -22,6 +22,18 @@ function drawImage($t,s) {
         $(image).append(row);
     }
     $t.append(image);
+    
+    if (typeof callback === 'function')
+        callback($t);
+}
+/**
+ * @param {Object}
+ * */
+function drawClass($t, callback) {
+    let _class = document.createElement('section');
+    $t.append(_class);
+    if (typeof callback === 'function')
+        callback(_class);
 }
 /**
  *

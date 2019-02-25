@@ -7,5 +7,17 @@ window.onload = () => {
     
     console.log(sample);
     
-    drawImage($('#target'),sample);
+    drawClass($('#target'),function($t){
+        drawImage($t,sample);
+    });
+    
+    Ajax.get('setTrain',{
+        sample:sample
+    },function(data){
+        drawClass($('#target'),function($t){
+            $.each(data,function(k,v) {
+                drawImage($t,v.img);         
+            });
+        });
+    });
 }

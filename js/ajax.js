@@ -38,10 +38,11 @@
 
             // prepare payload
             let post = {
-                method :method
+                method :method,
+		data:data
             };
 
-            post = buildPostData(post, data);
+            //post = buildPostData(post, data);
 
             // make the request
     	    return $.ajax({
