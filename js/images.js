@@ -3,10 +3,14 @@
  * @param {Object}
  * @param {Array}
  * */
-function drawImage($t,s, callback) {
+function drawImage($t,s, c, callback) {
     //
     let image = document.createElement('div');
         $(image).attr('class','image');
+        if (c !== undefined) {
+            $(image).attr('data-count',c);
+            $(image).html('<h3>'+c+'</h3>');
+        }
     for(let y=0;y<s.length;y++) {
             let row = document.createElement('div');
                 $(row).attr('class','row');

@@ -26,18 +26,20 @@ class First {
                 }
                 
             }
-        foreach($count as $key => $value) {
-            foreach($value as $y => $ydata) {
-                foreach($ydata as $x => $xdata) {
-                    if(isset($return[$key])) {
-                        $return[$key]['count']+=$xdata;   
-                    }else{
-                        $return[$key]['count']=$xdata;
-                        $return[$key]['img']=$img[$key];
+            
+            foreach($count as $key => $value) {
+                foreach($value as $y => $ydata) {
+                    foreach($ydata as $x => $xdata) {
+                        if(isset($return[$key])) {
+                            $return[$key]['count']+=$xdata;   
+                        }else{
+                            $return[$key]['count']=$xdata;
+                            $return[$key]['img']=$img[$key];
+                            $return[$key]['stats']=$value;
+                        }
                     }
                 }
             }
-        }
         //echo '<pre>';print_r($return);exit();/*REMOVE ME*/
         return $return;
     }

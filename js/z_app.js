@@ -11,13 +11,13 @@ window.onload = () => {
         drawImage($t,sample);
     });
     // setFirst
-    // setTrain
+    //setTrain
     Ajax.get('setTrain',{
         sample:sample
     },function(data){
         drawClass($('#target'),function($t){
             $.each(data,function(k,v) {
-                drawImage($t,v.img);         
+                drawImage($t,v.img,v.count);         
             });
         });
     });
