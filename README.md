@@ -17,5 +17,7 @@ This was the easy part...The hard part, I think, will be the classification. I a
 
 ### Database Schema
 CREATE TABLE class (id integer primary key autoincrement,color varchar(7),active boolean);
+
 CREATE TABLE data (iid int,cid int,pixel boolean,x int,y int,certainty tinyint);
+
 CREATE TABLE icinfo (iid int, cid int,x int,y int);
