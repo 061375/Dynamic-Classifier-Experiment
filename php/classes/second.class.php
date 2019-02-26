@@ -3,39 +3,30 @@ class Second {
 	/** 
      * 
      * */
-    public static function train($data,$s) {
+    public static function train($data,$samples) {
     	$return = [];
         //return Knearest::first($data,$s);
-        $data = Angles::right($data);
-        foreach ($s as $key => $value) {
-        	$s = Angles::right($value,$key);
-        	/*
-        	$angles = [];
-	        $x = count($data);
-	        $y = count($s);
-	        if($x>$y) {
-	        	$loop = $data;
-	        	$_loop = $s;	
+        $aright = Angles::right($data);
+        $aslope = Angles::slope($data);
+
+        foreach ($samples as $key => $value) {
+        	//
+        	$caright = Angles::right($value,$key);
+	        if($aright == $caright) {
+	        	$return[$key]['count'] += ($aright * 100);
 	        }else{
-	        	$loop = $s;
-	        	$_loop = $data;
+	        	if(!isset($return[$key]['count']))
+	        		$return[$key]['count'] = 0;
 	        }
-	        foreach ($loop as $k => $value) {
-	        	if(isset($_loop[$k]))
-	        		if($value['x'] == $_loop[$k]['x'] && 
-	        			$value['y'] == $_loop[$k]['y']) {
-	        				if(isset($return[$key])) {
-	        					$return[$key]['count']+=150;
-	        				}else{
-	        					$return[$key]['count']=150;
-	        				}
-	        		}
-	        }
-	        */
-	        if($data == $s) {
-	        	$return[$key]['count'] = ($data * 100);
+
+	        //
+	        $caslope = Angles::slope($value,$key);
+	        //echo $caslope.' :: '.$aslope."\n";
+	        if($aslope == $caslope) {
+	        	$return[$key]['count'] += ($aslope * 100);
 	        }else{
-	        	$return[$key]['count'] = 0;
+	        	if(!isset($return[$key]['count']))
+	        		$return[$key]['count'] = 0;
 	        }
         }
         return $return;
