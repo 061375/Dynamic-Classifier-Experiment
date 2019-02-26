@@ -1,11 +1,18 @@
 <?php 
+/** 
+ * @version 1.0.2
+ *
+ * @note - I think I can do away with right by expanding the $AngleTemplate
+ *
+ * */
 class Angles {
 	/** 
+	 * 
 	 * @param array
 	 * @param string for debugging only
 	 * */
 	public static function right($data,$key='') {
-//if($key == '1551113338')echo '<pre>';print_r($data);die('END OF DUMP');
+
 		$found = [];
 		$check = [];
 		$smin = (SSIZE/2);
@@ -45,8 +52,6 @@ class Angles {
             	}
             }
         }
-
-        //$angles = [];
         $angles = 0;
         $x = count($found['x']);
         $y = count($found['y']);
@@ -60,10 +65,9 @@ class Angles {
         	foreach ($ydata as $x => $xdata) {
             	if(isset($found['x'][$y][$x]) && isset($found['y'][$y][$x])) 
             		$angles++;
-            		//$angles[] = ['y'=>$y,'x'=>$x];
             }
         }
-//if($key == '1551113338')echo '<pre>';print_r($angles);die('END OF DUMP');
+
         return $angles;
 	}
 	/** 
@@ -73,43 +77,105 @@ class Angles {
 	public static function slope($data,$key='') {
 		global $AngleTemplates;
 
+		// @var number
 		$count = 0;
+		// @var number
 		$l = count($data);
+		// loop the data
 		for($y = 0;$y<$l;$y++) {
             for($x=0;$x<$l;$x++) {
+            	// stored samples as a key 'pixels'
+
+            	// STORED SAMPLE
             	if(isset($data[$y][$x]['pixel'])) {
             		foreach ($AngleTemplates as $template) {
-
+            			// @var number
             			$found = 0;
-	            		for($yy=0;$yy<3;$yy++) {
-	            			for($xx=0;$xx<3;$xx++) {
+            			// loop the angle template variable
+	            		for($yy=0;$yy<ASIZE;$yy++) {
+	            			for($xx=0;$xx<ASIZE;$xx++) {
+	            				// if this is a set key and it matches this coord then add one
 	            				if(isset($data[$yy+$y][$xx+$x]['pixel']) AND $data[$yy+$y][$xx+$x]['pixel'] == $template[$yy][$xx])
 	            					$found++;
 	            			}
 	            		}
-	            		if($found ==3)
+	            		// a find should match the ASIZE var perfectly
+	            		if($found == ASIZE)
 	            			$count++;
+	            		// reset
 	            		$found = 0;
 	            	}
             	}else{
             		foreach ($AngleTemplates as $template) {
-            			//echo '<pre>';print_r($template);die('END OF DUMP');
             			$found = 0;
-	            		for($yy=0;$yy<3;$yy++) {
-	            			for($xx=0;$xx<3;$xx++) {
-	            				//echo $data[$yy+$y][$xx+$x].' '.$template[$yy][$xx]."\n";
+	            		for($yy=0;$yy<ASIZE;$yy++) {
+	            			for($xx=0;$xx<ASIZE;$xx++) {
 	            				if(isset($data[$yy+$y][$xx+$x]) AND $data[$yy+$y][$xx+$x] == $template[$yy][$xx])
 	            					$found++;
 	            			}
 	            		}
-	            		if($found ==3)
+	            		if($found == ASIZE)
 	            			$count++;
 	            		$found = 0;
 	            	}
             	}
             }
         }
-        //if($key=='1551112647')echo '<pre>';print_r($count);die('END OF DUMP');
+
+        return $count;
+	}
+	/** 
+	 * @param array
+	 * @param string for debugging only
+	 * */
+	public static function curve($data,$key='') {
+		global $CurveTemplates;
+
+		// @var number
+		$count = 0;
+		// @var number
+		$l = count($data);
+		// loop the data
+		for($y = 0;$y<$l;$y++) {
+            for($x=0;$x<$l;$x++) {
+            	// stored samples as a key 'pixels'
+
+            	// STORED SAMPLE
+            	if(isset($data[$y][$x]['pixel'])) {
+            		foreach ($AngleTemplates as $template) {
+            			// @var number
+            			$found = 0;
+            			// loop the angle template variable
+	            		for($yy=0;$yy<CSIZE;$yy++) {
+	            			for($xx=0;$xx<CSIZE;$xx++) {
+	            				// if this is a set key and it matches this coord then add one
+	            				if(isset($data[$yy+$y][$xx+$x]['pixel']) AND $data[$yy+$y][$xx+$x]['pixel'] == $template[$yy][$xx])
+	            					$found++;
+	            			}
+	            		}
+	            		// a find should match the CSIZE var perfectly
+	            		if($found == CSIZE)
+	            			$count++;
+	            		// reset
+	            		$found = 0;
+	            	}
+            	}else{
+            		foreach ($CurveTemplates as $template) {
+            			$found = 0;
+	            		for($yy=0;$yy<CSIZE;$yy++) {
+	            			for($xx=0;$xx<CSIZE;$xx++) {
+	            				if(isset($data[$yy+$y][$xx+$x]) AND $data[$yy+$y][$xx+$x] == $template[$yy][$xx])
+	            					$found++;
+	            			}
+	            		}
+	            		if($found == CSIZE)
+	            			$count++;
+	            		$found = 0;
+	            	}
+            	}
+            }
+        }
+//if($key=='1551200961')echo '<pre>';print_r($count);die('END OF DUMP');
         return $count;
 	}
 }
