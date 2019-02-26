@@ -41,6 +41,7 @@ section:after {
     width: 10px;
     height: 10px;
     float: left;
+    box-shadow: inset 1px 1px #ececec8c;
 }
 .image .on {
     background: #000;
