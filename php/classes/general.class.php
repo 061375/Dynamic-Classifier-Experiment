@@ -64,4 +64,15 @@ class General {
 
         return $sql;
     }
+    /** 
+     * 
+     * */
+    public static function numRows($data) {
+        $nrows = 0;
+        $data->reset();
+        while ($data->fetchArray())
+            $nrows++;
+        $data->reset();
+        return $nrows;
+    }
 }

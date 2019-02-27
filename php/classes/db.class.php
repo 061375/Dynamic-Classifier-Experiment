@@ -98,4 +98,24 @@ class Data {
         $sql = "select * from data2";
         return $db->query($sql);
     }
+    /**
+     * @return object
+     * */
+    public static function getImage($data) {
+        global $db;
+        
+        $sql = "select * from data2 WHERE";
+
+        $c = 0;
+        foreach($data as $y => $ydata) {
+            foreach($ydata as $x => $value) {
+                $sql .= " c".$c."=".$value." AND";
+                $c++;
+            }
+        }
+
+        $sql = substr($sql,0,strlen($sql)-3);
+
+        return $db->query($sql);
+    }
 }

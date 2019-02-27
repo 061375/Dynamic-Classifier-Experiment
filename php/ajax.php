@@ -45,64 +45,31 @@ function setFirst($data) {
 }
 
 function setTrain($data) {
+
     $data = isset($data['sample']) ? $data['sample'] : false;
 
     $results = [];
     $samples = [];
     $img = [];
+
     
-/*
-    $alldata = Data::getAll();
-    $all = [];
-    $c = 0;
-    while ($row = $alldata->fetchArray()) {
-        if(!isset($all[$row['iid']])) {
-            $c = 0;
-            $all[$row['iid']] = [
-                'iid'=>$row['iid'],
-                'cid'=>0,
-                'certainty'=>100,
-                'c0'=>$row['pixel']
-            ];
-        }else{
-            $c++;
-            $all[$row['iid']]['c'.$c] = $row['pixel'];
-        }
-    }
-
-    global $db;
-    foreach ($all as $iid => $row) {
-        $sql = "INSERT INTO data2 ";
-        $cols = "";
-        $vals = "";
-        foreach ($row as $column => $value) {
-            $cols.=$column.",";
-            $vals.=$value.",";
-        }
-        $cols = substr($cols,0,strlen($cols)-1);
-        $vals = substr($vals,0,strlen($vals)-1);
-        $sql .= "(".$cols.") VALUES (".$vals.")";
-        //echo '<pre>';print_r($sql);die('END OF DUMP');
-        $db->query($sql);
-    }
-
-    // get the samples
-    $s = Data::getAll();
-    while ($row = $s->fetchArray()) {
-        $img[$row['iid']][$row['y']][$row['x']] = $row['pixel'];
-        $samples[$row['iid']][$row['y']][$row['x']]['pixel'] = $row['pixel'];
-    }
-*/
 
     $s = Data::getAll();
     $img = General::buildImage($s);
     $samples = General::buildImage($s,true);
 
     $results[] = First::train($data,$samples);
-
-    $results[] = Second::train($data,$samples);
 //echo '<pre>';print_r($results);die('END OF DUMP');
+    $results[] = Second::train($data,$samples);
+
+        
+
     $return = General::mergeAll($results,$img);
+
+    $t = Data::getImage($data);
+    if(General::numRows($t)<1) {
+        First::set($data);
+    }
 
     return $return;
 }
