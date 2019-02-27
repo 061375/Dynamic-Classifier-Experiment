@@ -60,6 +60,15 @@ class Data {
      * @param string
      * @return object
      * */
+    public static function set2($sql) {
+        global $db;
+        return $db->query($sql);
+    }
+    /**
+     * @param array
+     * @param string
+     * @return object
+     * */
     public static function setMulti($data) {
         global $db;
         $iid = strtotime('now');
@@ -86,7 +95,7 @@ class Data {
      * */
     public static function getAll() {
         global $db;
-        $sql = "select * from data";
+        $sql = "select * from data2";
         return $db->query($sql);
     }
 }

@@ -11,12 +11,14 @@ class First {
      * @param array
      * * */
     public static function set($data) {
-        $iid = strtotime('now');
+        $sql = General::makeInsertImage($data); 
+        Data::set2($sql);
+        /*
         foreach($data as $y => $ydata) {
             foreach($ydata as $x => $value) {
                 Data::set($value,$x,$y,$iid);   
             }
         }
-        //Data::setMulti($data);
+        */
     }
 }
