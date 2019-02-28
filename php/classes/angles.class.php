@@ -60,7 +60,8 @@ class Angles {
         }else{
         	$loop = $found['y'];
         }
-
+	
+	if(!empty($loop))
         foreach ($loop as $y => $ydata) {
         	foreach ($ydata as $x => $xdata) {
             	if(isset($found['x'][$y][$x]) && isset($found['y'][$y][$x])) 
@@ -142,7 +143,7 @@ class Angles {
 
             	// STORED SAMPLE
             	if(isset($data[$y][$x]['pixel'])) {
-            		foreach ($AngleTemplates as $template) {
+            		foreach ($CurveTemplates as $template) {
             			// @var number
             			$found = 0;
             			// loop the angle template variable
